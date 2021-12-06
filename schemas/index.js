@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // 몽구스 연결 코드
-const connect = () => {
+export async function connect() {
   // 개발할때는 디버그모드로 설정 가능.
-  if (process.env.NODE_ENV !== "production") {
-    mongoose.set("debug", true);
-  }
+  // if (process.env.NODE_ENV !== "production") {
+  //   mongoose.set("debug", true);
+  // }
 
   //AWS 연결할때는 수정해야함.
   mongoose
@@ -15,7 +15,7 @@ const connect = () => {
       ignoreUndefined: true,
     })
     .catch((err) => console.log(err));
-};
+}
 
 // 몽고디비 연결 에러
 mongoose.connection.on("error", (err) => {
@@ -27,4 +27,13 @@ mongoose.connection.on("disconnected", () => {
   console.error("몽고디비 연결이 끊김. 연결을 재시도함");
   connect();
 });
-module.exports = connect;
+
+export function useVirtualId(schema) {
+  schema.virtual("id").get(function () {
+    return this._id.toHexString();
+  });
+
+  schema.set("toJSON", {
+    virtuals: true,
+  });
+}

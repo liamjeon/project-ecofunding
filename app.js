@@ -1,11 +1,14 @@
-const express = require("express");
+import express from "express";
+import { connect } from "./schemas/index.js";
+import router from "./router/index.js";
+
 const app = express();
 const port = 3000;
-const connect = require("./schemas");
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-app.use(express.static("public"));
+
+app.use("/api", router);
 
 connect();
 
