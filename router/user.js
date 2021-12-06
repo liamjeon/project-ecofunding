@@ -13,7 +13,7 @@ router.post("/auth/nickname", userController.checkNickname);
 // signup api
 router.post("/auth/signup", userController.signup);
 
-// login api ..
+// login api ....
 router.post("/login", userController.login);
 
 export default router;
