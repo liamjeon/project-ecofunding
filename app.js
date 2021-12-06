@@ -1,13 +1,13 @@
 import express from 'express';
 import 'express-async-errors';
-// import commentRouter from './controller/comment.js';
+import commentRouter from './router/comment.js'
 import path from 'path';
 import { connectDB } from './model/database.js';
 
 const app = express();
 
 app.use(express.json());
-// app.use("/comment", commentRouter);
+app.use("/comment", commentRouter);
 
 app.use((req, res, next)=>{
   res.sendStatus(404);
