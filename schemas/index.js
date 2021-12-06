@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 // 몽구스 연결 코드
 const connect = () => {
@@ -27,4 +27,4 @@ mongoose.connection.on("disconnected", () => {
   console.error("몽고디비 연결이 끊김. 연결을 재시도함");
   connect();
 });
-module.exports = connect;
+export default connect;
