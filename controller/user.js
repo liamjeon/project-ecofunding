@@ -53,5 +53,5 @@ export async function login(req, res) {
     return;
   }
   const token = jwt.sign({ userId: userCheck.userId }, "ecofunding");
-  res.send({ token });
+  res.status(201).send({ token });
 }
