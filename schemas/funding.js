@@ -41,4 +41,4 @@ const FundingSchema = new Schema({
 });
 
 useVirtualId(FundingSchema);
-export const Funding = mongoose.model("Funding", FundingSchema);
+export default mongoose.model("Funding", FundingSchema);
