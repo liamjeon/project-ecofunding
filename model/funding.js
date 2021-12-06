@@ -11,9 +11,9 @@ export async function getItems() {
   }
 }
 
-export async function getItem(id) {
+export async function getItem(itemId) {
   try {
-    const funding = await Funding.findById(id).exec();
+    const funding = await Funding.findById(itemId).exec();
     return funding;
   } catch (error) {
     console.log(error);
@@ -31,9 +31,9 @@ export async function createItem(title, images, thumbnail, price, targetPrice, c
   }
 }
 
-export async function updateItem(id, title, images, thumbnail, price, targetPrice, content) {
+export async function updateItem(itemId, title, images, thumbnail, price, targetPrice, content) {
   try {
-    await Funding.updateOne({ _id: id }, { $set: { title, images, thumbnail, price, targetPrice, content } }).exec();
+    await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, price, targetPrice, content } }).exec();
     return;
   } catch (error) {
     console.log(error);
@@ -41,9 +41,9 @@ export async function updateItem(id, title, images, thumbnail, price, targetPric
   }
 }
 
-export async function deleteItem(id) {
+export async function deleteItem(itemId) {
   try {
-    await Funding.deleteOne({ _id: id }).exec();
+    await Funding.deleteOne({ _id: itemId }).exec();
     return;
   } catch (error) {
     console.log(error);
