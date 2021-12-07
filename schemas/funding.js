@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { useVirtualId } from "./index.js";
+import { useVirtualId } from "../utils/schema.js";
 
 const { Schema } = mongoose;
 const FundingSchema = new Schema({

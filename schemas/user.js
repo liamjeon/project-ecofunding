@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { useVirtualId } from "../utils/schema.js";
 
 const { Schema } = mongoose;
 const UsersSchema = new Schema({
@@ -9,11 +10,5 @@ const UsersSchema = new Schema({
 });
 
 // id라는 이름으로 _id 사용
-UsersSchema.virtual("id").get(function () {
-  return this._id.toHexString();
-});
-UsersSchema.set("toJSON", {
-  virtuals: true,
-});
-
+useVirtualId(UsersSchema);
 export default mongoose.model("User", UsersSchema);
