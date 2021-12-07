@@ -9,5 +9,6 @@ router.get("/:itemId", fundingController.getFunding);
 router.post("/", isAuth, fundingController.postFunding);
 router.put("/:itemId", isAuth, fundingController.updateFunding);
 router.delete("/:itemId", isAuth, fundingController.deleteFunding);
+router.put("/funding/:itemId", isAuth, fundingController.priceUpdateFunding);
 
 export default router;

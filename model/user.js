@@ -1,4 +1,5 @@
 import Users from "../schemas/user.js";
+import { buyUserCalculator } from "../utils/price.js";
 
 export async function findDup(input) {
   return Users.findOne(input);
@@ -15,4 +16,17 @@ export async function createUser(loginId, hashPassword, nickname) {
 
 export async function findById(id) {
   return Users.findById(id);
+}
+
+export async function pointUpdateUser(id, point, price) {
+  try {
+    console.log(price);
+    console.log(point);
+    const newPoint = buyUserCalculator(price, point);
+    await Users.updateOne({ _id: id }, { $set: { point: newPoint } }).exec();
+    return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 }

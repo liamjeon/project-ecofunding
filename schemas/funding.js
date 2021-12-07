@@ -25,6 +25,7 @@ const FundingSchema = new Schema({
   },
   totalPrice: {
     type: Number,
+    default: 0,
   },
   content: {
     type: String,

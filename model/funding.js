@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { buyItemCalculator } from "../utils/price.js";
 import Funding from "../schemas/funding.js";
 
 //test
@@ -46,6 +46,17 @@ export async function updateItem(itemId, title, images, thumbnail, price, target
 export async function deleteItem(itemId) {
   try {
     await Funding.deleteOne({ _id: itemId }).exec();
+    return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
+export async function priceUpdateItem(itemId, price, totalPrice) {
+  try {
+    const newTotalPrice = buyItemCalculator(price, totalPrice);
+    await Funding.updateOne({ _id: itemId }, { $set: { totalPrice: newTotalPrice } }).exec();
     return;
   } catch (error) {
     console.log(error);
