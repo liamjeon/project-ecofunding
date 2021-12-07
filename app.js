@@ -1,14 +1,14 @@
 import express from "express";
 import "express-async-errors";
-import commentRouter from "./router/comment.js";
 import { connect } from "./schemas/index.js";
+import router from "./router/index.js";
 // import { connectDB } from "./model/database.js";
 
 const app = express();
 
 app.use(express.json());
 
-app.use("/comment", commentRouter);
+app.use("/api", router);
 
 app.use((req, res, next) => {
   res.sendStatus(404);
