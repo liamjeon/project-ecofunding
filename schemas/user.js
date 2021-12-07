@@ -8,8 +8,8 @@ const UsersSchema = new Schema({
   point: { type: Number, required: true },
 });
 
-// userId라는 이름으로 _id 사용
-UsersSchema.virtual("userId").get(function () {
+// id라는 이름으로 _id 사용
+UsersSchema.virtual("id").get(function () {
   return this._id.toHexString();
 });
 UsersSchema.set("toJSON", {
