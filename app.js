@@ -1,7 +1,8 @@
 import express from "express";
 import "express-async-errors";
 import commentRouter from "./router/comment.js";
-import { connectDB } from "./model/database.js";
+import { connect } from "./schemas/index.js";
+// import { connectDB } from "./model/database.js";
 
 const app = express();
 
@@ -17,7 +18,7 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-connectDB()
+connect()
   .then(() => {
     console.log("mongoose init");
     const server = app.listen(3000);

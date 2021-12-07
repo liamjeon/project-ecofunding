@@ -27,13 +27,3 @@ mongoose.connection.on("disconnected", () => {
   console.error("몽고디비 연결이 끊김. 연결을 재시도함");
   connect();
 });
-
-export function useVirtualId(schema) {
-  schema.virtual("id").get(function () {
-    return this._id.toHexString();
-  });
-
-  schema.set("toJSON", {
-    virtuals: true,
-  });
-}
