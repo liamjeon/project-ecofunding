@@ -61,7 +61,7 @@ export async function login(req, res) {
     res.status(400).send({ message: "아이디 또는 패스워드를 확인해주세요" });
     return;
   }
-  const token = jwt.sign({ userId: userCheck.userId }, SECRET_KEY, {
+  const token = jwt.sign({ id: userCheck.id }, SECRET_KEY, {
     expiresIn: EXPIRED,
   });
   res.status(201).send({ token });
