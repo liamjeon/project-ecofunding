@@ -1,4 +1,3 @@
-import express from "express";
 import * as commentRepository from "../model/comment.js";
 
 export async function createComment(req, res, next) {
@@ -7,7 +6,8 @@ export async function createComment(req, res, next) {
   const result = await commentRepository.create(itemId, comment);
 
   console.log(result);
-  return res.status(201).json(result);
+  // return res.status(201).json(result);
+  return res.status(201).json({"ok":"true", "message":"등록성공"});
 }
 
 export async function getComment(req, res, next) {

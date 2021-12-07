@@ -1,7 +1,6 @@
 import express from 'express';
 import 'express-async-errors';
 import commentRouter from './router/comment.js'
-import path from 'path';
 import { connectDB } from './model/database.js';
 
 const app = express();
