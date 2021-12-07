@@ -4,6 +4,7 @@ import { connect } from "./schemas/index.js";
 import router from "./router/index.js";
 // import { connectDB } from "./model/database.js";
 
+const port = 3000;
 const app = express();
 
 app.use(express.json());
@@ -19,3 +20,7 @@ app.use((error, req, res, next) => {
 });
 
 connect();
+
+app.listen(port, () => {
+  console.log(`listening at http://localhost:${port}`);
+});
