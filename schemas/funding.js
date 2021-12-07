@@ -34,7 +34,7 @@ const FundingSchema = new Schema({
     type: Date,
     default: Date.now,
   },
-  userId: {
+  nickname: {
     type: String,
     required: true,
   },

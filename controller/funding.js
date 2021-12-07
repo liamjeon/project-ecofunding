@@ -18,7 +18,15 @@ export async function postFunding(req, res, next) {
     const { title, images, thumbnail, price, targetPrice, content } = res.body;
     //   res.locals.user 는 아직 모름 주영님이 설정한 방식대로 감
     const user = res.locals.user;
-    await fundingService.createItem(title, images, thumbnail, price, targetPrice, content, user);
+    await fundingService.createItem(
+      title,
+      images,
+      thumbnail,
+      price,
+      targetPrice,
+      content,
+      user
+    );
     res.status(201).json({ ok: true, message: "생성 성공" });
   } catch (error) {
     console.log(error);
@@ -34,7 +42,15 @@ export async function updateFunding(req, res, next) {
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.userId == user.id) {
       try {
-        await fundingService.updateItem(itemId, title, images, thumbnail, price, targetPrice, content);
+        await fundingService.updateItem(
+          itemId,
+          title,
+          images,
+          thumbnail,
+          price,
+          targetPrice,
+          content
+        );
         res.status(201).json({ ok: true, message: "수정 성공" });
       } catch (error) {
         console.log(error);

@@ -14,8 +14,8 @@ export default (req, res, next) => {
   }
 
   try {
-    const { userId } = jwt.verify(tokenValue, "ecofunding"); // 토큰 인증 후 userId 할당
-    userModel.findById(userId).then((user) => {
+    const { id } = jwt.verify(tokenValue, "ecofunding"); // 토큰 인증 후 userId 할당
+    userModel.findById(id).then((user) => {
       res.locals.user = user; // 찾은 데이터를 res.locas.user에 할당
       next();
     });

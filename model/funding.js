@@ -23,9 +23,25 @@ export async function getItem(itemId) {
   }
 }
 
-export async function createItem(title, images, thumbnail, price, targetPrice, content, userId) {
+export async function createItem(
+  title,
+  images,
+  thumbnail,
+  price,
+  targetPrice,
+  content,
+  nickname
+) {
   try {
-    await Funding.create({ title, images, thumbnail, price, targetPrice, content, userId });
+    await Funding.create({
+      title,
+      images,
+      thumbnail,
+      price,
+      targetPrice,
+      content,
+      nickname,
+    });
     return;
   } catch (error) {
     console.log(error);
@@ -33,9 +49,20 @@ export async function createItem(title, images, thumbnail, price, targetPrice, c
   }
 }
 
-export async function updateItem(itemId, title, images, thumbnail, price, targetPrice, content) {
+export async function updateItem(
+  itemId,
+  title,
+  images,
+  thumbnail,
+  price,
+  targetPrice,
+  content
+) {
   try {
-    await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, price, targetPrice, content } }).exec();
+    await Funding.updateOne(
+      { _id: itemId },
+      { $set: { title, images, thumbnail, price, targetPrice, content } }
+    ).exec();
     return;
   } catch (error) {
     console.log(error);
