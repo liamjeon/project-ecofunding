@@ -23,9 +23,9 @@ export async function getItem(itemId) {
   }
 }
 
-export async function createItem(title, images, thumbnail, price, targetPrice, content, userId) {
+export async function createItem({ title, images, thumbnail, price, targetPrice, content, nickname }) {
   try {
-    await Funding.create({ title, images, thumbnail, price, targetPrice, content, userId });
+    await Funding.create({ title, images, thumbnail, price, targetPrice, content, nickname });
     return;
   } catch (error) {
     console.log(error);
