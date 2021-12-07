@@ -18,9 +18,4 @@ app.use((error, req, res, next) => {
   res.sendStatus(500);
 });
 
-connect()
-  .then(() => {
-    console.log("mongoose init");
-    const server = app.listen(3000);
-  })
-  .catch(console.error);
+connect();
