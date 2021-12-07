@@ -15,13 +15,10 @@ export default (req, res, next) => {
 
   try {
     const { userId } = jwt.verify(tokenValue, "ecofunding"); // 토큰 인증 후 userId 할당
-    userModel
-      .findById(userId)
-      .exec()
-      .then((user) => {
-        res.locals.user = user; // 찾은 데이터를 res.locas.user에 할당
-        next();
-      });
+    userModel.findById(userId).then((user) => {
+      res.locals.user = user; // 찾은 데이터를 res.locas.user에 할당
+      next();
+    });
   } catch (error) {
     res.status(401).send({
       errorMessage: "로그인 후 사용하세요",
