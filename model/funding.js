@@ -1,4 +1,4 @@
-import { buyItemCalculator } from "../utils/price.js";
+import { buyItemCalculator, buyItemPercentCalculator } from "../utils/price.js";
 import Funding from "../schemas/funding.js";
 
 //test
@@ -53,11 +53,22 @@ export async function deleteItem(itemId) {
   }
 }
 
-export async function priceUpdateItem(itemId, price, totalPrice) {
+export async function priceUpdateItem(itemId, price, totalPrice, targetPrice) {
   try {
     const newTotalPrice = buyItemCalculator(price, totalPrice);
-    await Funding.updateOne({ _id: itemId }, { $set: { totalPrice: newTotalPrice } }).exec();
+    const newPercent = buyItemPercentCalculator(newTotalPrice, targetPrice);
+    await Funding.updateOne({ _id: itemId }, { $set: { totalPrice: newTotalPrice, percent: newPercent } }).exec();
     return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
+export async function getRankingItems() {
+  try {
+    const fundings = await Funding.find({}).sort({ percent: -1, date: -1 }).limit(5).exec();
+    return fundings;
   } catch (error) {
     console.log(error);
     return;

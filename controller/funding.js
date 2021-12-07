@@ -76,22 +76,19 @@ export async function priceUpdateFunding(req, res, next) {
     const { itemId } = req.params;
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
-    if (funding && funding.nickname == user.nickname) {
-      try {
-        const { id, point } = user;
-        const { price, totalPrice } = funding;
-        await fundingService.priceUpdateItem(itemId, price, totalPrice);
-        await userModel.pointUpdateUser(id, point, price);
-        res.status(204).send();
-      } catch (error) {
-        console.log(error);
-        res.status(400).send();
-      }
-    } else {
-      res.status(400).send();
-    }
+    const { id, point } = user;
+    const { price, totalPrice, targetPrice } = funding;
+    await fundingService.priceUpdateItem(itemId, price, totalPrice, targetPrice);
+    await userModel.pointUpdateUser(id, point, price);
+    res.status(204).send();
   } catch (error) {
     console.log(error);
     res.status(400).send();
   }
+}
+
+export async function getRankingFundings(req, res, next) {
+  const fundings = await fundingService.getRankingItems();
+
+  res.status(200).json({ ok: true, result: fundings });
 }

@@ -2,6 +2,10 @@ export function buyItemCalculator(price, totalPrice) {
   return price + totalPrice;
 }
 
+export function buyItemPercentCalculator(totalPrice, targetPrice) {
+  return totalPrice / targetPrice;
+}
+
 export function buyUserCalculator(price, point) {
   const newPoint = point - price;
   if (newPoint <= 0) {

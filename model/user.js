@@ -20,8 +20,6 @@ export async function findById(id) {
 
 export async function pointUpdateUser(id, point, price) {
   try {
-    console.log(price);
-    console.log(point);
     const newPoint = buyUserCalculator(price, point);
     await Users.updateOne({ _id: id }, { $set: { point: newPoint } }).exec();
     return;

@@ -19,6 +19,7 @@ const FundingSchema = new Schema({
     type: Number,
     required: true,
   },
+  //0원이 될 수 없도록 만들어야됨
   targetPrice: {
     type: Number,
     required: true,
@@ -37,6 +38,10 @@ const FundingSchema = new Schema({
   },
   nickname: {
     type: String,
+  },
+  percent: {
+    type: Number,
+    default: 0,
   },
 });
 
