@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import Funding from "../schemas/funding.js";
 
+//test
+
 export async function getItems() {
   try {
     const fundings = await Funding.find({}).sort("-date").exec();
