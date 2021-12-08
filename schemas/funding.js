@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { useVirtualId, useFullDate } from "../utils/schema.js";
+import { useVirtualId, useFullDate, toJsonVirtuals } from "../utils/schema.js";
 
 const { Schema } = mongoose;
 const FundingSchema = new Schema({
@@ -44,7 +44,7 @@ const FundingSchema = new Schema({
     default: 0,
   },
 });
-
 useVirtualId(FundingSchema);
+toJsonVirtuals(FundingSchema);
 useFullDate(FundingSchema);
 export default mongoose.model("Funding", FundingSchema);

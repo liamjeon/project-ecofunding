@@ -1,5 +1,5 @@
 import Mongoose from "mongoose";
-import { useGapDate } from "../utils/schema.js";
+import { useGapDate, toJsonVirtuals } from "../utils/schema.js";
 
 //comment schema definition
 const commentSchema = new Mongoose.Schema(
@@ -13,6 +13,7 @@ const commentSchema = new Mongoose.Schema(
 );
 
 useGapDate(commentSchema);
+toJsonVirtuals(commentSchema);
 //To use our schema definition, we need to convert our schema into a Model we can work with.
 const Comment = Mongoose.model("Comment", commentSchema);
 

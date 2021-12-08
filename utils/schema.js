@@ -4,9 +4,6 @@ export function useVirtualId(schema) {
   schema.virtual("id").get(function () {
     return this._id.toHexString();
   });
-  schema.set("toJSON", {
-    virtuals: true,
-  });
 }
 
 // export function usePercent(schema) {
@@ -23,10 +20,6 @@ export function useFullDate(schema) {
   schema.virtual("date").get(function () {
     return returnFullDate(this.rawDate);
   });
-
-  schema.set("toJSON", {
-    virtuals: true,
-  });
 }
 
 export function useGapDate(schema) {
@@ -34,7 +27,9 @@ export function useGapDate(schema) {
     const nowDate = new Date();
     return returnGapDate(nowDate, this.rawDate);
   });
+}
 
+export function toJsonVirtuals(schema) {
   schema.set("toJSON", {
     virtuals: true,
   });
