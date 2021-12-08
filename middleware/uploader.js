@@ -7,10 +7,10 @@ export const uploader = multer({
             cb(null, './uploads');
         },
         filename : function (req, file, cb){
+            //Todo : 서버주소를 filename
             const filename = file.originalname.split('.')[0] + '-' + Date.now() + path.extname(file.originalname)
-            req.locals.url = filename;
-
-            console.log(filename);
+            req.url = 'localhost:3000/'+filename;
+            console.log(req.url);
             cb(null, file.originalname.split('.')[0] + '-' + Date.now() + path.extname(file.originalname))
         }
     })

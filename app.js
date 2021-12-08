@@ -10,6 +10,7 @@ const app = express();
 app.use(express.json());
 
 app.use("/api", router);
+app.use(express.static("uploads"));
 
 import swaggerUi from "swagger-ui-express";
 

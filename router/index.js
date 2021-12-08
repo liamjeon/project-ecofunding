@@ -10,7 +10,7 @@ router.use("/item", itemRouter);
 router.use("/item", commentRouter);
 router.use("/auth", userRouter);
 router.post("/image", uploader.single('image'), (req, res, next)=>{
-    res.status.json(req.locals.url);
+    res.status(201).json(req.url);
 });
 
 export default router;
