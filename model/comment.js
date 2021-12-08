@@ -18,11 +18,7 @@ export async function getByitemId(itemId) {
   return Comment.find({ itemId });
 }
 
-export async function create(itemId, comment) {
-  //Todo
-  //const userId = req.userId; //인증 미들웨어에서 req에 userId 추가 예정
-  const nickname = "liam";
-
+export async function create(itemId, nickname, comment) {
   return new Comment({
     itemId,
     comment,
@@ -32,7 +28,11 @@ export async function create(itemId, comment) {
 }
 
 export async function update(commentId, comment) {
-  return Comment.findByIdAndUpdate(commentId, { comment }, { returnOriginal: false });
+  return Comment.findByIdAndUpdate(
+    commentId,
+    { comment },
+    { returnOriginal: false }
+  );
 }
 
 export async function remove(commentId) {

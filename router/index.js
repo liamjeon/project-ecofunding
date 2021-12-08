@@ -6,7 +6,7 @@ import userRouter from "./user.js";
 const router = express.Router();
 
 router.use("/item", itemRouter);
-router.use("/comment", commentRouter);
+router.use("/item", commentRouter);
 router.use("/auth", userRouter);
 
 export default router;
