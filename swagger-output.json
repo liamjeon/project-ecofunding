@@ -5,7 +5,7 @@
     "description": "hanghae6W API",
     "version": "1.0.0"
   },
-  "host": "localhost:3000",
+  "host": "13.125.141.36",
   "basePath": "/",
   "components": {
     "securitySchemes": {
