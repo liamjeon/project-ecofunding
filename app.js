@@ -4,8 +4,8 @@ import { connect } from "./schemas/index.js";
 import router from "./router/index.js";
 // import { connectDB } from "./model/database.js";
 
-const app = express();
 const port = 3000;
+const app = express();
 
 app.use(express.json());
 
