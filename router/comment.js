@@ -6,7 +6,7 @@ import isAuth from "../middleware/auth.js";
 const router = express.Router();
 
 //GET /comment/:itemId
-router.get("/:itemId/comment", isAuth, commentController.getComment);
+router.get("/:itemId/comment", commentController.getComment);
 
 //POST /comment
 router.post("/:itemId/comment", isAuth, commentController.createComment);
