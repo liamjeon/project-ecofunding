@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import { buyItemCalculator, buyItemPercentCalculator } from "../utils/price.js";
 import Funding from "../schemas/funding.js";
 
 //test
@@ -47,6 +47,28 @@ export async function deleteItem(itemId) {
   try {
     await Funding.deleteOne({ _id: itemId }).exec();
     return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
+export async function priceUpdateItem(itemId, price, totalPrice, targetPrice) {
+  try {
+    const newTotalPrice = buyItemCalculator(price, totalPrice);
+    const newPercent = buyItemPercentCalculator(newTotalPrice, targetPrice);
+    await Funding.updateOne({ _id: itemId }, { $set: { totalPrice: newTotalPrice, percent: newPercent } }).exec();
+    return;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+}
+
+export async function getRankingItems() {
+  try {
+    const fundings = await Funding.find({}).sort({ percent: -1, date: -1 }).limit(5).exec();
+    return fundings;
   } catch (error) {
     console.log(error);
     return;

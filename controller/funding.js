@@ -1,4 +1,5 @@
 import * as fundingService from "../model/funding.js";
+import * as userModel from "../model/user.js";
 
 export async function getFundings(req, res, next) {
   const fundings = await fundingService.getItems();
@@ -14,38 +15,36 @@ export async function getFunding(req, res, next) {
 
 export async function postFunding(req, res, next) {
   try {
-    console.log(req.body);
     const { title, images, thumbnail, price, targetPrice, content } = req.body;
-    //   res.locals.user 는 아직 모름 주영님이 설정한 방식대로 감
     const user = res.locals.user;
     await fundingService.createItem({ title, images, thumbnail, price, targetPrice, content, nickname: user.nickname });
-    res.status(201);
+    res.status(201).send();
   } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).send();
   }
 }
 
 export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
-    const { title, images, thumbnail, price, targetPrice, content, nickname } = req.body;
+    const { title, images, thumbnail, price, targetPrice, content } = req.body;
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
       try {
-        await fundingService.updateItem(itemId, title, images, thumbnail, price, targetPrice, content, nickname);
-        res.status(204).json({ ok: true, message: "수정 성공" });
+        await fundingService.updateItem(itemId, title, images, thumbnail, price, targetPrice, content);
+        res.status(204).send();
       } catch (error) {
         console.log(error);
-        res.status(400);
+        res.status(400).send();
       }
     } else {
-      res.status(400);
+      res.status(400).send();
     }
   } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).send();
   }
 }
 
@@ -57,16 +56,38 @@ export async function deleteFunding(req, res, next) {
     if (funding && funding.nickname == user.nickname) {
       try {
         await fundingService.deleteItem(itemId);
-        res.status(204).json({ ok: true, message: "삭제 성공" });
+        res.status(204).send();
       } catch (error) {
         console.log(error);
-        res.status(400);
+        res.status(400).send();
       }
     } else {
-      res.status(400);
+      res.status(400).send();
     }
   } catch (error) {
     console.log(error);
-    res.status(400);
+    res.status(400).send();
   }
+}
+
+export async function priceUpdateFunding(req, res, next) {
+  try {
+    const { itemId } = req.params;
+    const user = res.locals.user;
+    const funding = await fundingService.getItem(itemId);
+    const { id, point } = user;
+    const { price, totalPrice, targetPrice } = funding;
+    await fundingService.priceUpdateItem(itemId, price, totalPrice, targetPrice);
+    await userModel.pointUpdateUser(id, point, price);
+    res.status(204).send();
+  } catch (error) {
+    console.log(error);
+    res.status(400).send();
+  }
+}
+
+export async function getRankingFundings(req, res, next) {
+  const fundings = await fundingService.getRankingItems();
+
+  res.status(200).json({ ok: true, result: fundings });
 }

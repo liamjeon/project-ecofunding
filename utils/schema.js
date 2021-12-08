@@ -7,3 +7,13 @@ export function useVirtualId(schema) {
     virtuals: true,
   });
 }
+
+// export function usePercent(schema) {
+//   schema.virtual("percent").get(function () {
+//     return this.totalPrice / this.targetPrice;
+//   });
+
+//   schema.set("toJSON", {
+//     virtuals: true,
+//   });
+// }
