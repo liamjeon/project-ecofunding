@@ -10,8 +10,8 @@ export function connect() {
 
   //AWS 연결할때는 수정해야함.
   mongoose
-    // .connect("mongodb://localhost:27017/ecofunding", {
-    .connect("mongodb://test:test@13.125.141.36:27017/Eco_funding", {
+    .connect("mongodb://localhost:27017/ecofunding", {
+      // .connect("mongodb://test:test@localhost:27017/admin", {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       ignoreUndefined: true,
