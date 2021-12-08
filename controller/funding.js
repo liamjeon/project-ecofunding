@@ -1,5 +1,6 @@
 import * as fundingService from "../model/funding.js";
 import * as userModel from "../model/user.js";
+import { localFileUrl } from "../utils/image.js";
 
 export async function getFundings(req, res, next) {
   const fundings = await fundingService.getItems();
@@ -15,7 +16,12 @@ export async function getFunding(req, res, next) {
 
 export async function postFunding(req, res, next) {
   try {
-    const { title, images, thumbnail, price, targetPrice, content } = req.body;
+    const { title, price, targetPrice, content } = req.body;
+    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
+    const images = [];
+    req.files.images.forEach((v) => {
+      images.push(localFileUrl(v.filename));
+    });
     const user = res.locals.user;
     await fundingService.createItem({ title, images, thumbnail, price, targetPrice, content, nickname: user.nickname });
     res.status(201).send();
