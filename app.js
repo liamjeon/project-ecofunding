@@ -11,6 +11,15 @@ app.use(express.json());
 
 app.use("/api", router);
 
+import swaggerUi from "swagger-ui-express";
+
+// import swaggerFile from "./swagger-output.json";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+const swaggerFile = require("./swagger-output.json");
+
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(swaggerFile));
+
 app.use((req, res, next) => {
   res.sendStatus(404);
 });
