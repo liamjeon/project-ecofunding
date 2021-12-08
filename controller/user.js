@@ -2,7 +2,7 @@ import {} from "express-async-errors";
 import jwt from "jsonwebtoken";
 import * as userModel from "../model/user.js";
 import bcrypt from "bcrypt";
-import { config } from '../configuration/config.js';
+import { config } from "../configuration/config.js";
 
 // loginId dup check
 export async function checkLoginId(req, res) {
@@ -37,7 +37,10 @@ export async function checkNickname(req, res) {
 // signup
 export async function signup(req, res) {
   const { loginId, password, nickname } = req.body;
-  const hashPassword = await bcrypt.hash(password, config.bcrypt.saltRounds);
+  const hashPassword = await bcrypt.hash(
+    password,
+    Number(config.bcrypt.saltRounds)
+  );
   const user = await userModel.createUser(loginId, hashPassword, nickname);
   res.status(201).send({
     message: "회원가입 성공",

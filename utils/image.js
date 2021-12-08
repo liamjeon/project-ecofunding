@@ -1,5 +1,5 @@
-const LOCALURL = "localhost:3000/";
+import { config } from "../configuration/config.js";
 
 export function localFileUrl(filename) {
-  return LOCALURL + filename;
+  return config.uploader.host + "/" + filename;
 }
