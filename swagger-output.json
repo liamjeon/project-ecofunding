@@ -127,7 +127,7 @@
     },
     "/api/comment/{itemId}": {
       "get": {
-        "tags": [],
+        "tags": ["comment"],
         "description": "",
         "parameters": [
           {
@@ -144,7 +144,7 @@
         }
       },
       "post": {
-        "tags": [],
+        "tags": ["comment"],
         "description": "",
         "parameters": [
           {
@@ -175,7 +175,7 @@
     },
     "/api/comment/{commentId}": {
       "put": {
-        "tags": [],
+        "tags": ["comment"],
         "description": "",
         "parameters": [
           {
@@ -204,7 +204,7 @@
         }
       },
       "delete": {
-        "tags": [],
+        "tags": ["comment"],
         "description": "",
         "parameters": [
           {
