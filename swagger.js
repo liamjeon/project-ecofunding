@@ -5,7 +5,7 @@ const doc = {
     title: "API",
     description: "hanghae6W API",
   },
-  host: "localhost:3000",
+  host: "localhost:3000", // swagger.js는 어차피 만들어줄때만 쓰니까 배포해도 여긴 수정 안해도 됨.
   schemes: ["http"],
 };
 
