@@ -5,7 +5,6 @@ import * as userModel from "../model/user.js";
 export default (req, res, next) => {
   const { authorization } = req.headers; // Token은 headers에 담겨옴
   const [tokenType, tokenValue] = authorization.split(" "); // Token을 분리해서 배열에 할당
-
   if (tokenType !== "Bearer") {
     res.status(401).send({
       errorMessage: "로그인 후 사용하세요",
