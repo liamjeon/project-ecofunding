@@ -5,7 +5,7 @@ import Funding from "../schemas/funding.js";
 
 export async function getItems() {
   try {
-    const fundings = await Funding.find({}).sort("-date").exec();
+    const fundings = await Funding.find({}).sort("-rawDate").exec();
     return fundings;
   } catch (error) {
     console.log(error);
@@ -33,9 +33,9 @@ export async function createItem({ title, images, thumbnail, price, targetPrice,
   }
 }
 
-export async function updateItem(itemId, title, images, thumbnail, price, targetPrice, content) {
+export async function updateItem(itemId, title, images, thumbnail, content) {
   try {
-    await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, price, targetPrice, content } }).exec();
+    await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, content } }).exec();
     return;
   } catch (error) {
     console.log(error);

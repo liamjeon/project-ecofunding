@@ -28,12 +28,12 @@ export async function postFunding(req, res, next) {
 export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
-    const { title, images, thumbnail, price, targetPrice, content } = req.body;
+    const { title, images, thumbnail, content } = req.body;
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
       try {
-        await fundingService.updateItem(itemId, title, images, thumbnail, price, targetPrice, content);
+        await fundingService.updateItem(itemId, title, images, thumbnail, content);
         res.status(204).send();
       } catch (error) {
         console.log(error);
