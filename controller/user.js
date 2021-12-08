@@ -14,13 +14,11 @@ export async function checkLoginId(req, res) {
   const checkId = await userModel.findDup(loginId);
   if (checkId) {
     res.status(400).send({
-      message: "이미 사용중인 아이디 입니다.",
-      result: "fail",
+      result: "false",
     });
   } else {
     res.status(200).send({
-      message: "사용이 가능한 아이디 입니다.",
-      result: "success",
+      result: "true",
     });
   }
 }
@@ -31,13 +29,11 @@ export async function checkNickname(req, res) {
   const checkNick = await userModel.findDup(nickname);
   if (checkNick) {
     res.status(400).send({
-      message: "이미 사용중인 닉네임 입니다.",
-      result: "fail",
+      result: "false",
     });
   } else {
     res.status(200).send({
-      message: "사용이 가능한 닉네임 입니다.",
-      result: "success",
+      result: "true",
     });
   }
 }
@@ -56,6 +52,7 @@ export async function signup(req, res) {
 export async function login(req, res) {
   const { loginId, password } = req.body;
   const userCheck = await userModel.findDup({ loginId });
+  const nickname = userCheck.nickname;
   const validPassword = await bcrypt.compare(password, userCheck.password); //bcrypt는 단방향 암호화라서 복화하가 불가능
   if (!validPassword || !userCheck) {
     res.status(400).send({ message: "아이디 또는 패스워드를 확인해주세요" });
@@ -64,5 +61,5 @@ export async function login(req, res) {
   const token = jwt.sign({ id: userCheck.id }, SECRET_KEY, {
     expiresIn: EXPIRED,
   });
-  res.status(201).send({ token });
+  res.status(201).send({ token, nickname });
 }
