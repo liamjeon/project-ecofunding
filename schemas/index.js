@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
+import { config } from "../configuration/config.js";
 
 // 몽구스 연결 코드
 
 export function connect() {
   // 개발할때는 디버그모드로 설정 가능.
-  if (process.env.NODE_ENV !== "production") {
+  if (config.node.production !== "production") {
     mongoose.set("debug", true);
   }
 
