@@ -1,7 +1,7 @@
-import SQ from "sequelize";
 import Comment from "../schemas/comment.js";
 import Item from "../schemas/funding.js";
 const Sequelize = SQ.Sequelize;
+import SQ from "sequelize";
 
 //Todo
 //Comment & Item 연결 ==> Comment model에 ItemId가 추가될것
@@ -46,8 +46,8 @@ export async function create(itemId, nickname, comment) {
     itemId,
     comment,
     nickname,
-    rawDate: new Date(),  
-  })
+    rawDate: new Date(),
+  });
 }
 
 export async function update(commentId, comment) {
