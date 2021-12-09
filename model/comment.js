@@ -1,8 +1,12 @@
-import Comment from "../schemas/comment.js";
 import SQ from "sequelize";
+import Comment from "../schemas/comment.js";
+import Item from "../schemas/funding.js";
 const Sequelize = SQ.Sequelize;
 
-//Todo: Item model Import
+//Todo
+//Comment & Item 연결 ==> Comment model에 ItemId가 추가될것
+Comment.belongsTo(Item);
+
 
 const INCLUDE_ITEM = {
   attributes: [
@@ -13,7 +17,7 @@ const INCLUDE_ITEM = {
     [Sequelize.col("item.nickname"), "nickname"],
   ],
   include: {
-    // model: Item, //Todo: Item model Import
+    model: Item,
     attributes: [],
   },
 };
@@ -34,25 +38,25 @@ export async function getByitemId(itemId) {
     return data;
   });
 
-  return Comment.findAll({ where: { itemId } });
+  // return Comment.findAll({ where: { itemId } });
 }
 
-
-//Todo
-//Comment & Item 연결 ==> Comment model에 ItemId가 추가될것
-// Comment.belongto(Item)
 export async function create(itemId, nickname, comment) {
   return Comment.create({
     itemId,
     comment,
     nickname,
-    rawDate: new Date(),
-  });
+    rawDate: new Date(),  
+  })
 }
 
-
 export async function update(commentId, comment) {
-  return Comment.findByPk(commentId, )
+  return Comment.findByPk(commentId) //
+    .then((cmt) => {
+      cmt.comment = comment;
+      return cmt.save();
+    });
+
   // return Comment. (
   //   commentId,
   //   { comment },
@@ -61,5 +65,10 @@ export async function update(commentId, comment) {
 }
 
 export async function remove(commentId) {
+  return Comment.findByPk(commentId) //
+    .then((cmt) => {
+      cmt.comment = comment;
+      return cmt.save();
+    });
   // return Comment.findByIdAndDelete(commentId);
 }

@@ -15,10 +15,6 @@ export default sequelize.define("comment", {
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  itemId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
   nickname: {
     type: DataTypes.STRING(45),
     allowNull: false,

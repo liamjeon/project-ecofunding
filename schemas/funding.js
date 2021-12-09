@@ -1,50 +1,22 @@
-import mongoose from "mongoose";
-import { useVirtualId, useFullDate, toJsonVirtuals } from "../utils/schema.js";
+import SQ from "sequelize";
+import { sequelize } from "../schemas/database.js";
+const DataTypes = SQ.DataTypes;
 
-const { Schema } = mongoose;
-const FundingSchema = new Schema({
+//Todo
+  //Item model 연결 후 itemId, nickname 삭제
+export default sequelize.define("item", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
   title: {
-    type: String,
-    required: true,
-  },
-  images: {
-    type: [String],
-    required: true,
-  },
-  thumbnail: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-    required: true,
-  },
-  //0원이 될 수 없도록 만들어야됨
-  targetPrice: {
-    type: Number,
-    required: true,
-  },
-  totalPrice: {
-    type: Number,
-    default: 0,
-  },
-  content: {
-    type: String,
-    required: true,
-  },
-  rawDate: {
-    type: Date,
-    default: Date.now,
+    type: DataTypes.STRING(45),
+    allowNull: false,
   },
   nickname: {
-    type: String,
-  },
-  percent: {
-    type: Number,
-    default: 0,
+    type: DataTypes.STRING(45),
+    allowNull: false,
   },
 });
-useVirtualId(FundingSchema);
-toJsonVirtuals(FundingSchema);
-useFullDate(FundingSchema);
-export default mongoose.model("Funding", FundingSchema);

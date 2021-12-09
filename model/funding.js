@@ -1,6 +1,6 @@
 import { buyItemCalculator, buyItemPercentCalculator } from "../utils/price.js";
 import Funding from "../schemas/funding.js";
-
+import Item from "../schemas/funding.js"
 //test
 
 export async function getItems() {
