@@ -27,7 +27,7 @@ app.use((error, req, res, next) => {
 
 connect(); //mongoose 연결
 sequelize.sync().then((client)=>{
-  console.log(client);
+  // console.log(client);
 })//database 연결 모델과 스키마 및 db table 만들어주는 놈
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
