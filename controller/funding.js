@@ -19,11 +19,23 @@ export async function postFunding(req, res, next) {
     const { title, price, targetPrice, content } = req.body;
     const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
     const images = [];
+    if (!req.files.images) {
+      res.status(400).send();
+      return;
+    }
     req.files.images.forEach((v) => {
       images.push(localFileUrl(v.filename));
     });
     const user = res.locals.user;
-    await fundingService.createItem({ title, images, thumbnail, price, targetPrice, content, nickname: user.nickname });
+    await fundingService.createItem({
+      title,
+      images,
+      thumbnail,
+      price,
+      targetPrice,
+      content,
+      nickname: user.nickname,
+    });
     res.status(201).send();
   } catch (error) {
     console.log(error);
@@ -39,7 +51,13 @@ export async function updateFunding(req, res, next) {
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
       try {
-        await fundingService.updateItem(itemId, title, images, thumbnail, content);
+        await fundingService.updateItem(
+          itemId,
+          title,
+          images,
+          thumbnail,
+          content
+        );
         res.status(204).send();
       } catch (error) {
         console.log(error);
@@ -83,7 +101,12 @@ export async function priceUpdateFunding(req, res, next) {
     const funding = await fundingService.getItem(itemId);
     const { id, point } = user;
     const { price, totalPrice, targetPrice } = funding;
-    await fundingService.priceUpdateItem(itemId, price, totalPrice, targetPrice);
+    await fundingService.priceUpdateItem(
+      itemId,
+      price,
+      totalPrice,
+      targetPrice
+    );
     await userModel.pointUpdateUser(id, point, price);
     res.status(204).send();
   } catch (error) {

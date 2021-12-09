@@ -3,14 +3,18 @@ import "express-async-errors";
 import { connect } from "./schemas/index.js";
 import router from "./router/index.js";
 // import { connectDB } from "./model/database.js";
-
+import cors from "cors";
 const port = 3000;
 const app = express();
+// const corsOptions = {
+//   origin: "Eco_funding domain",
+//   optionsSuccessStatus: 200,
+// };
 
 app.use(express.json());
-
 app.use("/api", router);
 app.use(express.static("uploads"));
+app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 
 import swaggerUi from "swagger-ui-express";
 
