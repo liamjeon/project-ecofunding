@@ -4,7 +4,7 @@ import SQ from "sequelize";
 const Sequelize = SQ.Sequelize;
 
 export async function findDup(input) {
-  return Users.findOne({ where: { title: input } });
+  return Users.findOne({ where: input });
 }
 
 export async function createUser(loginId, hashPassword, nickname) {
@@ -17,13 +17,13 @@ export async function createUser(loginId, hashPassword, nickname) {
 }
 
 export async function findById(id) {
-  return Users.findById(id);
+  return Users.findByPk(id);
 }
 
 export async function pointUpdateUser(id, point, price) {
   try {
     const newPoint = buyUserCalculator(price, point);
-    await Users.updateOne({ _id: id }, { $set: { point: newPoint } }).exec();
+    await Users.update({ point: newPoint }, { where: { id } });
     return;
   } catch (error) {
     console.log(error);
