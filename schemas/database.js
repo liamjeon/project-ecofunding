@@ -7,5 +7,3 @@ export const sequelize = new SQ.Sequelize(database, user, password,{
     dialect: 'mysql', //defulat
     // logging: false,
 });
-
-cc

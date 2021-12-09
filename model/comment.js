@@ -5,7 +5,7 @@ import SQ from "sequelize";
 
 //Todo
 //Comment & Item 연결 ==> Comment model에 ItemId가 추가될것
-Comment.belongsTo(Item);
+// Comment.belongsTo(Item);
 
 const INCLUDE_ITEM = {
   attributes: [
@@ -25,6 +25,7 @@ const ORDER_DESC = {
 };
 
 export async function getByitemId(itemId) {
+  return Comment.findAll({ where: { itemId } });
   // return Comment.findAll({
   //   ...INCLUDE_ITEM,
   //   ...ORDER_DESC,
@@ -36,7 +37,6 @@ export async function getByitemId(itemId) {
   //   console.log(data);
   //   return data;
   // });
-  return Comment.findAll({ where: { itemId } });
 }
 
 export async function create(itemId, nickname, comment) {
@@ -45,6 +45,8 @@ export async function create(itemId, nickname, comment) {
     comment,
     nickname,
     rawDate: new Date(),
+  }).then((result) => {
+    console.log(result);
   });
 }
 
@@ -63,10 +65,5 @@ export async function update(commentId, comment) {
 }
 
 export async function remove(commentId) {
-  return Comment.findByPk(commentId) //
-    .then((cmt) => {
-      cmt.comment = comment;
-      return cmt.save();
-    });
-  // return Comment.findByIdAndDelete(commentId);
+  return Comment.destroy({ where: { id: commentId } });
 }

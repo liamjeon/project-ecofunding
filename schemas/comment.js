@@ -23,4 +23,8 @@ export default sequelize.define("comment", {
     type: DataTypes.DATE,
     allowNull: false,
   },
+  itemId: {
+    type: DataTypes.STRING(45),
+    allowNull: false,
+  },  
 });
