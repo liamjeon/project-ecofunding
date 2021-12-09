@@ -4,7 +4,8 @@ export async function createComment(req, res, next) {
   const itemId = req.params.itemId;
   console.log(req.params);
   const { comment } = req.body;
-  const nickname = res.locals.user.nickname;
+  const nickname = "테스트아이디";
+  // const nickname = res.locals.user.nickname;
 
   try {
     const result = await commentRepository.create(itemId, nickname, comment);
