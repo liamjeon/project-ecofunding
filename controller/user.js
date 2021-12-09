@@ -50,7 +50,7 @@ export async function signup(req, res) {
 //login
 export async function login(req, res) {
   const { loginId, password } = req.body;
-  const userCheck = await userModel.findDup({ loginId });
+  const userCheck = await userModel.findDup(loginId);
   const nickname = userCheck.nickname;
   const validPassword = await bcrypt.compare(password, userCheck.password); //bcrypt는 단방향 암호화라서 복화하가 불가능
   if (!validPassword || !userCheck) {

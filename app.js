@@ -3,7 +3,7 @@ import "express-async-errors";
 import { connect } from "./schemas/index.js";
 import router from "./router/index.js";
 import swaggerUi from "swagger-ui-express";
-
+import cors from "cors";
 import { createRequire } from "module";
 import { sequelize } from "./schemas/database.js";
 

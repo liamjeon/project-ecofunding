@@ -1,14 +1,28 @@
-import mongoose from "mongoose";
-import { useVirtualId } from "../utils/schema.js";
+import SQ from "sequelize";
+import { sequelize } from "../schemas/database.js";
+const DataTypes = SQ.DataTypes;
 
-const { Schema } = mongoose;
-const UsersSchema = new Schema({
-  loginId: { type: String, required: true },
-  nickname: { type: String, required: true },
-  password: { type: String, required: true },
-  point: { type: Number, required: true },
+export default sequelize.define("user", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  loginId: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  nickname: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  point: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
 });
-
-// id라는 이름으로 _id 사용
-useVirtualId(UsersSchema);
-export default mongoose.model("User", UsersSchema);
