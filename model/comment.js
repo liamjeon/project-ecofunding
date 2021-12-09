@@ -1,39 +1,35 @@
-import Mongoose from "mongoose";
-import { useGapDate, toJsonVirtuals } from "../utils/schema.js";
+import Comment from "../schemas/comment.js";
+import SQ from "sequelize";
+const Sequelize = SQ.Sequelize;
 
-//comment schema definition
-const commentSchema = new Mongoose.Schema(
-  {
-    comment: { type: String, required: true },
-    itemId: { type: String, required: true },
-    nickname: { type: String, required: true },
-    rawDate: { type: Date, required: true },
-  },
-  { timestamps: true }
-);
-
-useGapDate(commentSchema);
-toJsonVirtuals(commentSchema);
-//To use our schema definition, we need to convert our schema into a Model we can work with.
-const Comment = Mongoose.model("Comment", commentSchema);
-
+//Todo: Item model Import
 export async function getByitemId(itemId) {
-  return Comment.find({ itemId });
+  return Comment.findAll({ where: { itemId } });
 }
 
+
+//Todo
+//Comment & Item 연결 ==> Comment model에 ItemId가 추가될것
+// Comment.belongto(Item)
 export async function create(itemId, nickname, comment) {
-  return new Comment({
+  return Comment.create({
     itemId,
     comment,
     nickname,
     rawDate: new Date(),
-  }).save();
+  });
 }
 
+
 export async function update(commentId, comment) {
-  return Comment.findByIdAndUpdate(commentId, { comment }, { returnOriginal: false });
+  return Comment.findByPk(commentId, )
+  // return Comment. (
+  //   commentId,
+  //   { comment },
+  //   { returnOriginal: false }
+  // );
 }
 
 export async function remove(commentId) {
-  return Comment.findByIdAndDelete(commentId);
+  // return Comment.findByIdAndDelete(commentId);
 }
