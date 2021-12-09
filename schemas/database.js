@@ -8,3 +8,4 @@ export const sequelize = new SQ.Sequelize(database, user, password,{
     // logging: false,
 });
 
+cc
