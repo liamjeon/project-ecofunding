@@ -4,8 +4,17 @@ import { connect } from "./schemas/index.js";
 import router from "./router/index.js";
 // import { connectDB } from "./model/database.js";
 
+import cors from "cors";
+
 const port = 3000;
 const app = express();
+
+// const corsOptions = {
+//     origin: "",
+//     optionsSuccessStatus: 200,
+//   };
+
+app.use(cors());
 
 app.use(express.json());
 
