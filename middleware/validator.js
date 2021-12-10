@@ -3,6 +3,7 @@ import { body, validationResult } from "express-validator";
 const check = (req, res, next) => {
   const errors = validationResult(req);
   if (errors.isEmpty()) {
+    console.log("ok?");
     return next();
   } else {
     return res.status(400).json({ result: "fail" });

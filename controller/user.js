@@ -50,13 +50,17 @@ export async function signup(req, res) {
 //login
 export async function login(req, res) {
   const { loginId, password } = req.body;
-  const userCheck = await userModel.findDup(loginId);
-  const nickname = userCheck.nickname;
-  const validPassword = await bcrypt.compare(password, userCheck.password); //bcrypt는 단방향 암호화라서 복화하가 불가능
-  if (!validPassword || !userCheck || !nickname) {
+  const userCheck = await userModel.findDup({ loginId });
+  if (!userCheck || !password) {
     res.status(400).send({ message: "아이디 또는 패스워드를 확인해주세요" });
     return;
   }
+  const validPassword = await bcrypt.compare(password, userCheck.password); //bcrypt는 단방향 암호화라서 복화하가 불가능
+  if (!validPassword) {
+    res.status(400).send({ message: "아이디 또는 패스워드를 확인해주세요" });
+    return;
+  }
+  const nickname = userCheck.nickname;
   const token = jwt.sign({ id: userCheck.id }, config.jwt.secretKey, {
     expiresIn: config.jwt.expriersDays,
   });

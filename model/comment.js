@@ -31,7 +31,11 @@ export async function create(itemId, nickname, comment) {
 }
 
 export async function update(commentId, comment) {
-  return Comment.findByIdAndUpdate(commentId, { comment }, { returnOriginal: false });
+  return Comment.findByIdAndUpdate(
+    commentId,
+    { comment },
+    { returnOriginal: false }
+  );
 }
 
 export async function remove(commentId) {

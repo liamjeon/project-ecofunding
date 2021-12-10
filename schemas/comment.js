@@ -1,30 +1,44 @@
-import SQ from "sequelize";
-import { sequelize } from "../schemas/database.js";
-const DataTypes = SQ.DataTypes;
+import mongoose from "mongoose";
+import { useVirtualId } from "../utils/schema.js";
 
-//Todo
-  //Item model 연결 후 itemId, nickname 삭제
-export default sequelize.define("comment", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    allowNull: false,
-    primaryKey: true,
+const { Schema } = mongoose;
+const FundingSchema = new Schema({
+  title: {
+    type: String,
+    required: true,
   },
-  comment: {
-    type: DataTypes.TEXT,
-    allowNull: false,
+  images: {
+    type: [String],
+    required: true,
   },
-  itemId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
+  thumbnail: {
+    type: String,
+    required: true,
   },
-  nickname: {
-    type: DataTypes.STRING(45),
-    allowNull: false,
+  price: {
+    type: Number,
+    required: true,
   },
-  rawDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
+  targetPrice: {
+    type: Number,
+    required: true,
+  },
+  totalPrice: {
+    type: Number,
+  },
+  content: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  userId: {
+    type: String,
+    required: true,
   },
 });
+
+useVirtualId(FundingSchema);
+export default mongoose.model("Funding", FundingSchema);
