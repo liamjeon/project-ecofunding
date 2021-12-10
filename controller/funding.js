@@ -4,15 +4,25 @@ import { localFileUrl } from "../utils/image.js";
 import { fundingUpdateValidate, fundingPostValidate } from "../utils/fundingValidate.js";
 
 export async function getFundings(req, res, next) {
-  const fundings = await fundingService.getItems();
+  try {
+    const fundings = await fundingService.getItems();
 
-  res.status(200).json({ ok: true, result: fundings });
+    res.status(200).json({ ok: true, result: fundings });
+  } catch (error) {
+    res.sendStatus(400);
+    return;
+  }
 }
 
 export async function getFunding(req, res, next) {
-  const itemId = req.params.itemId;
-  const funding = await fundingService.getItem(itemId);
-  res.status(200).json({ ok: true, result: funding });
+  try {
+    const itemId = req.params.itemId;
+    const funding = await fundingService.getItem(itemId);
+    res.status(200).json({ ok: true, result: funding });
+  } catch (error) {
+    res.sendStatus(400);
+    return;
+  }
 }
 
 export async function postFunding(req, res, next) {
@@ -41,17 +51,18 @@ export async function postFunding(req, res, next) {
       content,
       nickname: user.nickname,
     });
-    res.status(201).send();
+    res.sendStatus(201);
   } catch (error) {
     console.log(error);
-    res.status(400).send();
+    res.sendStatus(400);
+    return;
   }
 }
 
 export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
-    const { title, images, thumbnail, content } = fundingUpdateValidate(req.body);
+    const { title, content } = fundingUpdateValidate(req.body);
     if (!req.files.thumbnail) {
       res.sendStatus(400);
       return;
@@ -60,7 +71,11 @@ export async function updateFunding(req, res, next) {
       res.sendStatus(400);
       return;
     }
-    const { title, images, thumbnail, content } = req.body;
+    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
+    const images = [];
+    req.files.images.forEach((v) => {
+      images.push(localFileUrl(v.filename));
+    });
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
@@ -77,6 +92,7 @@ export async function updateFunding(req, res, next) {
   } catch (error) {
     console.log(error);
     res.status(400).send();
+    return;
   }
 }
 
