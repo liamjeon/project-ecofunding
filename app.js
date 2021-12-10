@@ -5,7 +5,7 @@ import router from "./router/index.js";
 import swaggerUi from "swagger-ui-express";
 
 import { createRequire } from "module";
-import { sequelize } from './schemas/database.js';
+import { sequelize } from "./schemas/database.js";
 
 const port = 3000;
 const app = express();
@@ -26,9 +26,9 @@ app.use((error, req, res, next) => {
 });
 
 connect(); //mongoose 연결
-sequelize.sync().then((client)=>{
+sequelize.sync({ force: true }).then((client) => {
   // console.log(client);
-})//database 연결 모델과 스키마 및 db table 만들어주는 놈
+}); //database 연결 모델과 스키마 및 db table 만들어주는 놈
 app.listen(port, () => {
   console.log(`listening at http://localhost:${port}`);
 });

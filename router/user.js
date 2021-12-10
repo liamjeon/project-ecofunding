@@ -5,16 +5,16 @@ import { idValidator, nickValidator } from "../middleware/validator.js";
 
 const router = express.Router();
 
-// loginId dup check api
-router.post("/loginId", idValidator, userController.checkLoginId);
+// // loginId dup check api
+// router.post("/loginId", idValidator, userController.checkLoginId);
 
-// nickname dup check api
-router.post("/nickname", nickValidator, userController.checkNickname);
+// // nickname dup check api
+// router.post("/nickname", nickValidator, userController.checkNickname);
 
-// signup api
-router.post("/signup", userController.signup);
+// // signup api
+// router.post("/signup", userController.signup);
 
-// login api
-router.post("/login", userController.login);
+// // login api
+// router.post("/login", userController.login);
 
 export default router;

@@ -1,50 +1,50 @@
-import mongoose from "mongoose";
-import { useVirtualId, useFullDate, toJsonVirtuals } from "../utils/schema.js";
+import SQ from "sequelize";
+import { sequelize } from "../schemas/database.js";
+const DataTypes = SQ.DataTypes;
 
-const { Schema } = mongoose;
-const FundingSchema = new Schema({
-  title: {
-    type: String,
-    required: true,
+//Todo
+//Item model 연결 후 itemId, nickname 삭제
+export default sequelize.define("funding", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
   },
-  images: {
-    type: [String],
-    required: true,
+  title: {
+    type: DataTypes.TEXT,
+    allowNull: false,
   },
   thumbnail: {
-    type: String,
-    required: true,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   price: {
-    type: Number,
-    required: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   //0원이 될 수 없도록 만들어야됨
   targetPrice: {
-    type: Number,
-    required: true,
+    type: DataTypes.INTEGER,
+    allowNull: false,
   },
   totalPrice: {
-    type: Number,
-    default: 0,
+    type: DataTypes.INTEGER,
+    defaultValue: 0,
+    allowNull: false,
   },
   content: {
-    type: String,
-    required: true,
-  },
-  rawDate: {
-    type: Date,
-    default: Date.now,
-  },
-  nickname: {
-    type: String,
+    type: DataTypes.STRING,
+    allowNull: false,
   },
   percent: {
-    type: Number,
-    default: 0,
+    type: DataTypes.FLOAT(10, 7),
+    defaultValue: 0,
+    allowNull: false,
+  },
+  rawDate: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+    allowNull: false,
   },
 });
-useVirtualId(FundingSchema);
-toJsonVirtuals(FundingSchema);
-useFullDate(FundingSchema);
-export default mongoose.model("Funding", FundingSchema);
