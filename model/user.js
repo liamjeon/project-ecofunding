@@ -2,7 +2,7 @@ import Users from "../schemas/user.js";
 import { buyUserCalculator } from "../utils/price.js";
 
 export async function findDup(input) {
-  return Users.findOne(input);
+  return Users.findOne({ input });
 }
 
 export async function createUser(loginId, hashPassword, nickname) {

@@ -53,7 +53,7 @@ export async function login(req, res) {
   const userCheck = await userModel.findDup(loginId);
   const nickname = userCheck.nickname;
   const validPassword = await bcrypt.compare(password, userCheck.password); //bcrypt는 단방향 암호화라서 복화하가 불가능
-  if (!validPassword || !userCheck) {
+  if (!validPassword || !userCheck || !nickname) {
     res.status(400).send({ message: "아이디 또는 패스워드를 확인해주세요" });
     return;
   }
