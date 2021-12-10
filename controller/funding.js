@@ -1,6 +1,7 @@
 import * as fundingService from "../model/funding.js";
 import * as userModel from "../model/user.js";
 import { localFileUrl } from "../utils/image.js";
+import { fundingUpdateValidate, fundingPostValidate } from "../utils/fundingValidate.js";
 
 export async function getFundings(req, res, next) {
   const fundings = await fundingService.getItems();
@@ -16,7 +17,7 @@ export async function getFunding(req, res, next) {
 
 export async function postFunding(req, res, next) {
   try {
-    const { title, price, targetPrice, content } = req.body;
+    const { title, price, targetPrice, content } = fundingPostValidate(req.body);
     const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
     const images = [];
     if (!req.files.images) {
@@ -46,18 +47,12 @@ export async function postFunding(req, res, next) {
 export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
-    const { title, images, thumbnail, content } = req.body;
+    const { title, images, thumbnail, content } = fundingUpdateValidate(req.body);
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
       try {
-        await fundingService.updateItem(
-          itemId,
-          title,
-          images,
-          thumbnail,
-          content
-        );
+        await fundingService.updateItem(itemId, title, images, thumbnail, content);
         res.status(204).send();
       } catch (error) {
         console.log(error);
@@ -101,12 +96,7 @@ export async function priceUpdateFunding(req, res, next) {
     const funding = await fundingService.getItem(itemId);
     const { id, point } = user;
     const { price, totalPrice, targetPrice } = funding;
-    await fundingService.priceUpdateItem(
-      itemId,
-      price,
-      totalPrice,
-      targetPrice
-    );
+    await fundingService.priceUpdateItem(itemId, price, totalPrice, targetPrice);
     await userModel.pointUpdateUser(id, point, price);
     res.status(204).send();
   } catch (error) {
