@@ -2,6 +2,7 @@ import * as fundingService from "../model/funding.js";
 import * as userModel from "../model/user.js";
 import { localFileUrl } from "../utils/image.js";
 import { fundingUpdateValidate, fundingPostValidate } from "../utils/fundingValidate.js";
+import UpdateData from "../service/updateClass.js";
 
 export async function getFundings(req, res, next) {
   try {
@@ -63,24 +64,12 @@ export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
     const { title, content } = fundingUpdateValidate(req.body);
-    if (!req.files.thumbnail) {
-      res.sendStatus(400);
-      return;
-    }
-    if (!req.files.images) {
-      res.sendStatus(400);
-      return;
-    }
-    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
-    const images = [];
-    req.files.images.forEach((v) => {
-      images.push(localFileUrl(v.filename));
-    });
+    const updateData = new UpdateData(title, content, req.files);
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
       try {
-        await fundingService.updateItem(itemId, title, images, thumbnail, content);
+        await fundingService.updateItem(itemId, updateData);
         res.status(204).send();
       } catch (error) {
         console.log(error);

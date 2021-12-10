@@ -33,9 +33,18 @@ export async function createItem({ title, images, thumbnail, price, targetPrice,
   }
 }
 
-export async function updateItem(itemId, title, images, thumbnail, content) {
+// export async function updateItem(itemId, title, images, thumbnail, content) {
+//   try {
+//     await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, content } }).exec();
+//     return;
+//   } catch (error) {
+//     console.log(error);
+//     return;
+//   }
+// }
+export async function updateItem(itemId, updateData) {
   try {
-    await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, content } }).exec();
+    await Funding.updateOne({ _id: itemId }, { $set: updateData }).exec();
     return;
   } catch (error) {
     console.log(error);
