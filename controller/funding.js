@@ -18,12 +18,16 @@ export async function getFunding(req, res, next) {
 export async function postFunding(req, res, next) {
   try {
     const { title, price, targetPrice, content } = fundingPostValidate(req.body);
-    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
-    const images = [];
-    if (!req.files.images) {
-      res.status(400).send();
+    if (!req.files.thumbnail) {
+      res.sendStatus(400);
       return;
     }
+    if (!req.files.images) {
+      res.sendStatus(400);
+      return;
+    }
+    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
+    const images = [];
     req.files.images.forEach((v) => {
       images.push(localFileUrl(v.filename));
     });
@@ -48,6 +52,15 @@ export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
     const { title, images, thumbnail, content } = fundingUpdateValidate(req.body);
+    if (!req.files.thumbnail) {
+      res.sendStatus(400);
+      return;
+    }
+    if (!req.files.images) {
+      res.sendStatus(400);
+      return;
+    }
+    const { title, images, thumbnail, content } = req.body;
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {
