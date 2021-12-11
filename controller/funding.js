@@ -1,8 +1,8 @@
 import * as fundingService from "../model/funding.js";
 import * as userModel from "../model/user.js";
 import { localFileUrl } from "../utils/image.js";
-import { fundingUpdateValidate, fundingPostValidate } from "../utils/fundingValidate.js";
-import UpdateData from "../service/updateClass.js";
+import { fundingUpdateValidate, fundingPostValidate, thumbnailAndImagesValidate } from "../utils/fundingValidate.js";
+import { UpdateFundingData } from "../service/dataClass.js";
 
 export async function getFundings(req, res, next) {
   try {
@@ -29,17 +29,11 @@ export async function getFunding(req, res, next) {
 export async function postFunding(req, res, next) {
   try {
     const { title, price, targetPrice, content } = fundingPostValidate(req.body);
-    if (!req.files.thumbnail) {
-      res.sendStatus(400);
-      return;
-    }
-    if (!req.files.images) {
-      res.sendStatus(400);
-      return;
-    }
-    const thumbnail = localFileUrl(req.files.thumbnail[0].filename);
+    console.log(req.files);
+    const reqFiles = thumbnailAndImagesValidate(req.files);
+    const thumbnail = localFileUrl(reqFiles.thumbnail[0].filename);
     const images = [];
-    req.files.images.forEach((v) => {
+    reqFiles.images.forEach((v) => {
       images.push(localFileUrl(v.filename));
     });
     const user = res.locals.user;
@@ -64,7 +58,7 @@ export async function updateFunding(req, res, next) {
   try {
     const { itemId } = req.params;
     const { title, content } = fundingUpdateValidate(req.body);
-    const updateData = new UpdateData(title, content, req.files);
+    const updateData = new UpdateFundingData(title, content, req.files);
     const user = res.locals.user;
     const funding = await fundingService.getItem(itemId);
     if (funding && funding.nickname == user.nickname) {

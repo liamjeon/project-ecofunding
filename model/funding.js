@@ -9,7 +9,7 @@ export async function getItems() {
     return fundings;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
@@ -19,7 +19,7 @@ export async function getItem(itemId) {
     return funding;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
@@ -29,26 +29,17 @@ export async function createItem({ title, images, thumbnail, price, targetPrice,
     return;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
-// export async function updateItem(itemId, title, images, thumbnail, content) {
-//   try {
-//     await Funding.updateOne({ _id: itemId }, { $set: { title, images, thumbnail, content } }).exec();
-//     return;
-//   } catch (error) {
-//     console.log(error);
-//     return;
-//   }
-// }
 export async function updateItem(itemId, updateData) {
   try {
     await Funding.updateOne({ _id: itemId }, { $set: updateData }).exec();
     return;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
@@ -58,7 +49,7 @@ export async function deleteItem(itemId) {
     return;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
@@ -70,7 +61,7 @@ export async function priceUpdateItem(itemId, price, totalPrice, targetPrice) {
     return;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
 
@@ -80,6 +71,6 @@ export async function getRankingItems() {
     return fundings;
   } catch (error) {
     console.log(error);
-    return;
+    return error;
   }
 }
