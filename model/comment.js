@@ -18,7 +18,7 @@ toJsonVirtuals(commentSchema);
 const Comment = Mongoose.model("Comment", commentSchema);
 
 export async function getByitemId(itemId) {
-  return Comment.find({ itemId });
+  return Comment.find({ itemId }).sort("-createdAt");
 }
 
 export async function create(itemId, nickname, comment) {
