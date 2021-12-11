@@ -1,6 +1,6 @@
 # 🍀 ECO FUNDING
 
-<img src="./ecofunding.png" alt="Eco_funding" width="100%" />
+<img src="./uploads/ecofunding.png" alt="Eco_funding" width="100%" />
 
 **에코펀딩**은 친환경 제품들을 펀딩하는 사이트 입니다. 항해99 미니프로젝트로 프론트앤드와 백앤드가 처음으로 합작한 프로젝트 입니다.
 
@@ -9,8 +9,8 @@
 ### 🖥️ Eco_funding Page View
 
 <p>
-  <img src="README.assets.gif" alt="Eco_funding" width="40%" />
-  <img src=".jpg" width="45%" />
+  <img src="./uploads/ecofunding1.png" alt="Eco_funding" width="45%" />
+  <img src="./uploads/ecofunding2.png" width="45%" />
 </p>
 
 > 🔗 개발 노션 : [https://www.notion.so/joo-page/1-50891e8907b44b24868f73df72692cd8](https://www.notion.so/joo-page/1-50891e8907b44b24868f73df72692cd8)
