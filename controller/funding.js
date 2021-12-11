@@ -29,7 +29,6 @@ export async function getFunding(req, res, next) {
 export async function postFunding(req, res, next) {
   try {
     const { title, price, targetPrice, content } = fundingPostValidate(req.body);
-    console.log(req.files);
     const reqFiles = thumbnailAndImagesValidate(req.files);
     const thumbnail = localFileUrl(reqFiles.thumbnail[0].filename);
     const images = [];
