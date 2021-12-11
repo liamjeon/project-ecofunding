@@ -3,7 +3,7 @@ export function buyItemCalculator(price, totalPrice) {
 }
 
 export function buyItemPercentCalculator(totalPrice, targetPrice) {
-  return totalPrice / targetPrice;
+  return parseInt((totalPrice / targetPrice) * 100, 10);
 }
 
 export function buyUserCalculator(price, point) {
